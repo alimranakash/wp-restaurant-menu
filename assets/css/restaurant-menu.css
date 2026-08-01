@@ -1,0 +1,149 @@
+.wprm-menu,
+.wprm-menu * {
+	box-sizing: border-box;
+}
+
+.wprm-menu {
+	background: #111;
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+	padding: 24px;
+}
+
+.wprm-menu__item {
+	align-items: flex-start;
+	display: flex;
+	gap: 18px;
+	position: relative;
+}
+
+.wprm-menu--image-right .wprm-menu__item {
+	flex-direction: row-reverse;
+}
+
+.wprm-menu__image {
+	flex: 0 0 auto;
+	height: 150px;
+	margin: 0;
+	max-width: 100%;
+	overflow: hidden;
+	width: 150px;
+}
+
+.wprm-menu__image img {
+	border-radius: 8px;
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.wprm-menu__image a {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+.wprm-menu__content {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.wprm-menu__header {
+	align-items: baseline;
+	display: flex;
+	width: 100%;
+}
+
+.wprm-menu__title {
+	color: #fff;
+	flex: 0 1 auto;
+	font-family: Oswald, Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+	font-size: 25px;
+	font-weight: 400 !important;
+	line-height: 1.1;
+	margin-block: 0;
+	text-transform: uppercase;
+	margin-top: 5px !important;
+}
+
+.wprm-menu__header .woocommerce-Price-amount.amount {
+	font-weight: 400;
+}
+
+.wprm-menu__title a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+.wprm-menu__separator {
+	border-bottom-color: #d6a900;
+	border-bottom-style: dotted;
+	border-bottom-width: 2px;
+	flex: 1 1 auto;
+	min-width: 24px;
+}
+
+.wprm-menu__price {
+	color: #d63f4c;
+	flex: 0 0 auto;
+	font-family: Oswald, Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+	font-size: 25px;
+	font-weight: 800;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.wprm-menu__price * {
+	color: inherit;
+	font: inherit;
+}
+
+.wprm-menu__description {
+	color: #fff;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+.wprm-menu__description p {
+	margin-block: 20px 0;
+}
+
+.wprm-menu__sold-out-badge {
+	display: inline-block;
+}
+
+.wprm-menu__item.is-sold-out {
+	filter: grayscale(1);
+	opacity: 0.62;
+	pointer-events: none;
+}
+
+.wprm-menu__item.is-sold-out .wprm-menu__price {
+	opacity: 1;
+}
+
+@media (max-width: 767px) {
+	.wprm-menu__header {
+		align-items: flex-start;
+		flex-wrap: wrap;
+	}
+
+	.wprm-menu__separator {
+		order: 3;
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.wprm-menu__item,
+	.wprm-menu--image-right .wprm-menu__item {
+		flex-direction: column;
+	}
+
+	.wprm-menu__image {
+		max-width: 100%;
+	}
+}
