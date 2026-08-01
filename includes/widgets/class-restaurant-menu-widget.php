@@ -181,14 +181,15 @@ class Restaurant_Menu_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
-			'inventory_status',
+			'product_id',
 			array(
-				'label'   => esc_html__( 'Inventory Status', 'wp-restaurant-menu' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'in_stock',
-				'options' => array(
-					'in_stock' => esc_html__( 'In Stock', 'wp-restaurant-menu' ),
-					'sold_out' => esc_html__( 'Sold Out', 'wp-restaurant-menu' ),
+				'label'       => esc_html__( 'Inventory Product', 'wp-restaurant-menu' ),
+				'type'        => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'options'     => $this->get_product_options(),
+				'description' => esc_html__( 'Select the WooCommerce product used to check stock status.', 'wp-restaurant-menu' ),
+				'dynamic'     => array(
+					'active' => true,
 				),
 			)
 		);
@@ -760,6 +761,39 @@ class Restaurant_Menu_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get published WooCommerce products for the inventory selector.
+	 *
+	 * @return array
+	 */
+	private function get_product_options() {
+		$options = array(
+			'' => esc_html__( 'Select Product', 'wp-restaurant-menu' ),
+		);
+
+		if ( ! function_exists( 'wc_get_products' ) ) {
+			return $options;
+		}
+
+		$products = wc_get_products(
+			array(
+				'status'  => 'publish',
+				'limit'   => -1,
+				'orderby' => 'title',
+				'order'   => 'ASC',
+				'return'  => 'objects',
+			)
+		);
+
+		foreach ( $products as $product ) {
+			if ( $product instanceof \WC_Product ) {
+				$options[ $product->get_id() ] = $product->get_name();
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Get default menu items.
 	 *
 	 * @return array
@@ -773,6 +807,7 @@ class Restaurant_Menu_Widget extends Widget_Base {
 				'link'             => array(
 					'url' => '#',
 				),
+				'product_id'       => '',
 				'inventory_status' => 'in_stock',
 			),
 			array(
@@ -782,6 +817,7 @@ class Restaurant_Menu_Widget extends Widget_Base {
 				'link'             => array(
 					'url' => '#',
 				),
+				'product_id'       => '',
 				'inventory_status' => 'in_stock',
 			),
 			array(
@@ -791,6 +827,7 @@ class Restaurant_Menu_Widget extends Widget_Base {
 				'link'             => array(
 					'url' => '#',
 				),
+				'product_id'       => '',
 				'inventory_status' => 'in_stock',
 			),
 		);

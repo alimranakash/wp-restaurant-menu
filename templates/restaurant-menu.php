@@ -20,7 +20,20 @@ $image_position = ! empty( $settings['image_position'] ) && 'right' === $setting
 		$title        = isset( $item['title'] ) ? sanitize_text_field( $item['title'] ) : '';
 		$description  = isset( $item['description'] ) ? wp_kses_post( $item['description'] ) : '';
 		$price        = isset( $item['price'] ) ? wp_kses_post( $item['price'] ) : '';
-		$is_sold_out  = ! empty( $item['inventory_status'] ) && 'sold_out' === $item['inventory_status'];
+		$product_id   = ! empty( $item['product_id'] ) ? absint( $item['product_id'] ) : 0;
+		$is_sold_out  = false;
+
+		if ( $product_id && function_exists( 'wc_get_product' ) ) {
+			$product = wc_get_product( $product_id );
+			if ( $product ) {
+				$is_sold_out = ! $product->is_in_stock();
+			}
+		}
+
+		if ( ! $product_id ) {
+			$is_sold_out = ! empty( $item['inventory_status'] ) && 'sold_out' === $item['inventory_status'];
+		}
+
 		$image_id     = ! empty( $item['image']['id'] ) ? absint( $item['image']['id'] ) : 0;
 		$image_url    = ! empty( $item['image']['url'] ) ? esc_url( $item['image']['url'] ) : '';
 		$item_url     = ! empty( $item['link']['url'] ) ? esc_url( $item['link']['url'] ) : '';
