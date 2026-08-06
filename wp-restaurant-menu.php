@@ -3,7 +3,7 @@
  * Plugin Name: WP Restaurant Menu
  * Plugin URI: https://worzen.com
  * Description: Custom Elementor widgets for premium restaurant menu layouts.
- * Version: 1.0.3
+ * Version: 1.0.5
  * Author: Al Imran Akash
  * Author URI: https://profiles.wordpress.org/al-imran-akash/
  * Text Domain: wp-restaurant-menu

@@ -89,7 +89,13 @@ $image_position = ! empty( $settings['image_position'] ) && 'right' === $setting
 					</h3>
 					<span class="wprm-menu__separator" aria-hidden="true"></span>
 					<?php if ( $price ) : ?>
-						<span class="wprm-menu__price"><?php echo wp_kses_post( $price ); ?></span>
+						<span class="wprm-menu__price">
+							<?php if ( $item_url && ! $is_sold_out ) : ?>
+								<a href="<?php echo esc_url( $item_url ); ?>" <?php echo ! empty( $item['link']['is_external'] ) ? 'target="_blank"' : ''; ?> <?php echo ! empty( $item['link']['nofollow'] ) ? 'rel="nofollow noopener"' : 'rel="noopener"'; ?>><?php echo wp_kses_post( $price ); ?></a>
+							<?php else : ?>
+								<?php echo wp_kses_post( $price ); ?>
+							<?php endif; ?>
+						</span>
 					<?php endif; ?>
 				</header>
 
